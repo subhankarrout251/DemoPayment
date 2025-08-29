@@ -36,16 +36,23 @@ export default function Shop() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:8080"}/api/books`);
+        const response = await fetch(
+          `${
+            import.meta.env.VITE_API_URL ||
+            "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app"
+          }/api/books`
+        );
         const data = await response.json();
         if (data.ok) {
-          const dynamicCategories = [...new Set(data.data.map(book => book.category).filter(Boolean))];
+          const dynamicCategories = [
+            ...new Set(data.data.map((book) => book.category).filter(Boolean)),
+          ];
           const allCategories = [
             { id: "", name: "All" },
             { id: "40", name: "Class 11-12" },
             { id: "30", name: "Competitive Exams" },
             { id: "20", name: "Foundation Courses" },
-            ...dynamicCategories.map(cat => ({ id: cat, name: cat }))
+            ...dynamicCategories.map((cat) => ({ id: cat, name: cat })),
           ];
           setCategories(allCategories);
         }

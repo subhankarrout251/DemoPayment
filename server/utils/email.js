@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER || "subhankarrout251@gmail.com",
     pass: process.env.EMAIL_PASS || "iammilu12",
   },
-}); 
+});
 
 // Email templates
 const emailTemplates = {
@@ -23,23 +23,31 @@ const emailTemplates = {
           <h3>Order Summary</h3>
           <p><strong>Order ID:</strong> ${orderData.orderId}</p>
           <p><strong>Total Amount:</strong> ₹${orderData.amount}</p>
-          <p><strong>Date:</strong> ${new Date(orderData.createdAt).toLocaleDateString()}</p>
+          <p><strong>Date:</strong> ${new Date(
+            orderData.createdAt
+          ).toLocaleDateString()}</p>
         </div>
 
         <div style="margin: 20px 0;">
           <h3>Items Purchased:</h3>
-          ${items.map(item => `
+          ${items
+            .map(
+              (item) => `
             <div style="border-bottom: 1px solid #e5e7eb; padding: 10px 0;">
               <p><strong>${item.title}</strong></p>
               <p>Quantity: ${item.qty} | Price: ₹${item.price}</p>
             </div>
-          `).join('')}
+          `
+            )
+            .join("")}
         </div>
 
         <div style="background: #dbeafe; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3>Payment Instructions</h3>
           <p>Please complete your payment using the UPI QR code or link below:</p>
-          <p><strong>UPI ID:</strong> ${process.env.MERCHANT_UPI || "test@upi"}</p>
+          <p><strong>UPI ID:</strong> ${
+            process.env.MERCHANT_UPI || "test@upi"
+          }</p>
           <p><strong>Amount:</strong> ₹${orderData.amount}</p>
           <p><strong>Note:</strong> Order ${orderData.orderId}</p>
         </div>
@@ -48,7 +56,7 @@ const emailTemplates = {
         
         <p>Best regards,<br>Coaching Centre Team</p>
       </div>
-    `
+    `,
   }),
 
   paymentSuccess: (orderData, customer, items) => ({
@@ -68,16 +76,23 @@ const emailTemplates = {
 
         <div style="margin: 20px 0;">
           <h3>Download Your Notes:</h3>
-          ${items.map(item => `
+          ${items
+            .map(
+              (item) => `
             <div style="border: 1px solid #d1d5db; padding: 15px; border-radius: 8px; margin: 10px 0;">
               <p><strong>${item.title}</strong></p>
               <p>Quantity: ${item.qty}</p>
-              <a href="${process.env.API_BASE || 'http://localhost:8080'}/api/orders/${orderData.orderId}/download/${item.id}" 
+              <a href="${
+                process.env.API_BASE ||
+                "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app"
+              }/api/orders/${orderData.orderId}/download/${item.id}" 
                  style="background: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; display: inline-block;">
                 Download PDF
               </a>
             </div>
-          `).join('')}
+          `
+            )
+            .join("")}
         </div>
 
         <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin: 20px 0;">
@@ -91,15 +106,15 @@ const emailTemplates = {
 
         <p>Happy studying!<br>Coaching Centre Team</p>
       </div>
-    `
-  })
+    `,
+  }),
 };
 
 // Send email function
 export const sendEmail = async (to, template, data) => {
   try {
     const emailContent = emailTemplates[template](...data);
-    
+
     const mailOptions = {
       from: process.env.EMAIL_USER || "your-email@gmail.com",
       to: to,
@@ -116,4 +131,4 @@ export const sendEmail = async (to, template, data) => {
   }
 };
 
-export default { sendEmail }; 
+export default { sendEmail };

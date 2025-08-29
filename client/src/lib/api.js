@@ -1,6 +1,8 @@
 // client/src/lib/api.js
 
-export const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
+export const API_BASE =
+  import.meta.env.VITE_API_URL ||
+  "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app";
 
 async function handleResponse(res) {
   if (!res.ok) {
@@ -45,4 +47,4 @@ export async function submitAdmission(formData) {
   });
   const json = await handleResponse(res);
   return json.data;
-} 
+}

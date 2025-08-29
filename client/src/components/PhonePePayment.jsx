@@ -8,9 +8,12 @@ function PhonePePayment() {
   const createOrder = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:8080/api/payment/phonepe/create-order", {
-        amount,
-      });
+      const response = await axios.post(
+        "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app/api/payment/phonepe/create-order",
+        {
+          amount,
+        }
+      );
 
       if (response.data.ok) {
         window.location.href = response.data.data.checkoutPageUrl;
@@ -45,8 +48,8 @@ function PhonePePayment() {
           onClick={createOrder}
           disabled={loading}
           className={`w-full p-2 rounded text-white ${
-            loading 
-              ? "bg-gray-400 cursor-not-allowed" 
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
               : "bg-purple-600 hover:bg-purple-700"
           }`}
         >

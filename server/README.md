@@ -5,6 +5,7 @@
 To enable email functionality, you need to set up the following environment variables:
 
 ### Gmail Setup
+
 1. Enable 2-factor authentication on your Gmail account
 2. Generate an App Password:
    - Go to Google Account settings
@@ -12,6 +13,7 @@ To enable email functionality, you need to set up the following environment vari
    - Generate a password for "Mail"
 
 ### Environment Variables
+
 Create a `.env` file in the server directory with:
 
 ```bash
@@ -30,7 +32,7 @@ EMAIL_USER=your-email@gmail.com
 EMAIL_PASS=your-app-password
 
 # API Base URL for email links
-API_BASE=http://localhost:8080
+API_BASE=https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app
 ```
 
 ## Features
@@ -58,4 +60,4 @@ server/
 ├── routes/             # API route handlers
 ├── utils/              # Utilities (QR, email)
 └── data/               # Book data
-``` 
+```

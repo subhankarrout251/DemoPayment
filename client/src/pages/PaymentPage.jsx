@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
+const API_BASE =
+  import.meta.env.VITE_API_URL ||
+  "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app";
 
 export default function PaymentPage() {
   const [qrCode, setQrCode] = useState("");

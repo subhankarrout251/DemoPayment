@@ -1,13 +1,16 @@
 // client/src/components/BookCart.jsx
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
+const API_BASE =
+  import.meta.env.VITE_API_URL ||
+  "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app";
 
 export default function BookCart({ book, onAdd }) {
   const handleAddToCart = () => {
     onAdd(book);
-    
+
     // Show success popup
-    const popup = document.createElement('div');
-    popup.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300';
+    const popup = document.createElement("div");
+    popup.className =
+      "fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300";
     popup.innerHTML = `
       <div class="flex items-center space-x-2">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -16,17 +19,17 @@ export default function BookCart({ book, onAdd }) {
         <span>Added to cart successfully!</span>
       </div>
     `;
-    
+
     document.body.appendChild(popup);
-    
+
     // Animate in
     setTimeout(() => {
-      popup.style.transform = 'translateX(0)';
+      popup.style.transform = "translateX(0)";
     }, 10);
-    
+
     // Remove after 3 seconds
     setTimeout(() => {
-      popup.style.transform = 'translateX(100%)';
+      popup.style.transform = "translateX(100%)";
       setTimeout(() => {
         if (document.body.contains(popup)) {
           document.body.removeChild(popup);
@@ -35,9 +38,11 @@ export default function BookCart({ book, onAdd }) {
     }, 3000);
   };
 
-  const coverImage = book.cover 
-    ? (book.cover.startsWith('http') ? book.cover : `${API_BASE}/${book.cover}`)
-    : '/api/placeholder/300/400';
+  const coverImage = book.cover
+    ? book.cover.startsWith("http")
+      ? book.cover
+      : `${API_BASE}/${book.cover}`
+    : "/api/placeholder/300/400";
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
@@ -46,7 +51,7 @@ export default function BookCart({ book, onAdd }) {
         alt={book.title}
         className="w-full h-48 object-cover"
         onError={(e) => {
-          e.target.src = '/api/placeholder/300/400';
+          e.target.src = "/api/placeholder/300/400";
         }}
       />
       <div className="p-4">

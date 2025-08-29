@@ -9,22 +9,28 @@ function PhonePeCheckout({ customer, onSuccess, onError }) {
   const handlePhonePePayment = async () => {
     try {
       setLoading(true);
-      
-      const response = await axios.post("http://localhost:8080/api/payment/phonepe/create-order", {
-        amount: getCartTotal() * 100, // Convert to paisa
-        name: customer.name,
-        mobileNumber: customer.phone
-      });
+
+      const response = await axios.post(
+        "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app",
+        {
+          amount: getCartTotal() * 100, // Convert to paisa
+          name: customer.name,
+          mobileNumber: customer.phone,
+        }
+      );
 
       if (response.data.ok) {
         // Store order details for status checking
-        localStorage.setItem('phonepe_order', JSON.stringify({
-          merchantOrderId: response.data.data.merchantOrderId,
-          amount: getCartTotal(),
-          customer: customer,
-          items: items
-        }));
-        
+        localStorage.setItem(
+          "phonepe_order",
+          JSON.stringify({
+            merchantOrderId: response.data.data.merchantOrderId,
+            amount: getCartTotal(),
+            customer: customer,
+            items: items,
+          })
+        );
+
         window.location.href = response.data.data.checkoutPageUrl;
       } else {
         onError(response.data.error || "Failed to create payment order");

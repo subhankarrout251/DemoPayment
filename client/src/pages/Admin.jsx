@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
+const API_BASE =
+  import.meta.env.VITE_API_URL ||
+  "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app";
 
 export default function Admin() {
   const [password, setPassword] = useState("");
@@ -119,9 +121,14 @@ export default function Admin() {
       <h1 className="text-2xl font-bold mb-6">Admin</h1>
 
       {!token ? (
-        <form onSubmit={handleLogin} className="space-y-4 bg-white p-6 rounded-md shadow">
+        <form
+          onSubmit={handleLogin}
+          className="space-y-4 bg-white p-6 rounded-md shadow"
+        >
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
             <input
               type="password"
               value={password}
@@ -144,13 +151,21 @@ export default function Admin() {
           <div className="flex space-x-4 border-b">
             <button
               onClick={() => setShowBooks(false)}
-              className={`pb-2 px-1 ${!showBooks ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'}`}
+              className={`pb-2 px-1 ${
+                !showBooks
+                  ? "border-b-2 border-blue-500 text-blue-600"
+                  : "text-gray-500"
+              }`}
             >
               Upload New Book
             </button>
             <button
               onClick={() => setShowBooks(true)}
-              className={`pb-2 px-1 ${showBooks ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'}`}
+              className={`pb-2 px-1 ${
+                showBooks
+                  ? "border-b-2 border-blue-500 text-blue-600"
+                  : "text-gray-500"
+              }`}
             >
               Manage Books ({books.length})
             </button>
@@ -158,10 +173,15 @@ export default function Admin() {
 
           {!showBooks ? (
             /* Upload Form */
-            <form onSubmit={handleUpload} className="space-y-4 bg-white p-6 rounded-md shadow">
+            <form
+              onSubmit={handleUpload}
+              className="space-y-4 bg-white p-6 rounded-md shadow"
+            >
               <div className="grid grid-cols-1 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Title
+                  </label>
                   <input
                     type="text"
                     value={title}
@@ -171,7 +191,9 @@ export default function Admin() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Price (₹)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Price (₹)
+                  </label>
                   <input
                     type="number"
                     step="1"
@@ -182,7 +204,9 @@ export default function Admin() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Category
+                  </label>
                   <div className="space-y-2">
                     <select
                       value={category}
@@ -191,7 +215,9 @@ export default function Admin() {
                     >
                       <option value="">Select or enter new category</option>
                       {categories.map((cat) => (
-                        <option key={cat} value={cat}>{cat}</option>
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
                       ))}
                     </select>
                     <input
@@ -204,10 +230,15 @@ export default function Admin() {
                   </div>
                   {categories.length > 0 && (
                     <div className="mt-2">
-                      <p className="text-sm text-gray-600">Existing categories:</p>
+                      <p className="text-sm text-gray-600">
+                        Existing categories:
+                      </p>
                       <div className="flex flex-wrap gap-2 mt-1">
                         {categories.map((cat) => (
-                          <span key={cat} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                          <span
+                            key={cat}
+                            className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded"
+                          >
                             {cat}
                           </span>
                         ))}
@@ -216,7 +247,9 @@ export default function Admin() {
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Cover Image (Optional)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Cover Image (Optional)
+                  </label>
                   <input
                     type="file"
                     accept="image/*"
@@ -234,7 +267,9 @@ export default function Admin() {
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">PDF File</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    PDF File
+                  </label>
                   <input
                     type="file"
                     accept="application/pdf"
@@ -262,7 +297,10 @@ export default function Admin() {
                 ) : (
                   <div className="space-y-4">
                     {books.map((book) => (
-                      <div key={book.id} className="border rounded-lg p-4 flex justify-between items-start">
+                      <div
+                        key={book.id}
+                        className="border rounded-lg p-4 flex justify-between items-start"
+                      >
                         <div className="flex items-start space-x-4 flex-1">
                           {book.cover && (
                             <img
@@ -272,14 +310,23 @@ export default function Admin() {
                             />
                           )}
                           <div className="flex-1">
-                            <h3 className="font-medium text-gray-900">{book.title}</h3>
-                            <p className="text-sm text-gray-600">Price: ₹{book.price}</p>
-                            <p className="text-sm text-gray-600">Category: {book.category || 'Uncategorized'}</p>
+                            <h3 className="font-medium text-gray-900">
+                              {book.title}
+                            </h3>
+                            <p className="text-sm text-gray-600">
+                              Price: ₹{book.price}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              Category: {book.category || "Uncategorized"}
+                            </p>
                             <p className="text-xs text-gray-500">
-                              Created: {new Date(book.createdAt).toLocaleDateString()}
+                              Created:{" "}
+                              {new Date(book.createdAt).toLocaleDateString()}
                             </p>
                             {book.cover && (
-                              <p className="text-xs text-green-600">✓ Has cover image</p>
+                              <p className="text-xs text-green-600">
+                                ✓ Has cover image
+                              </p>
                             )}
                           </div>
                         </div>
@@ -300,4 +347,4 @@ export default function Admin() {
       )}
     </div>
   );
-} 
+}
