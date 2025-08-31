@@ -34,20 +34,20 @@ app.use(
 
 app.use(express.json({ limit: "2mb" }));
 
-// Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
+// Static file serving for serverless environment
+try {
+  const uploadsDir = path.join(__dirname, "uploads");
+  if (fs.existsSync(uploadsDir)) {
+    app.use("/uploads", express.static(uploadsDir));
+  }
+  
+  const assetsDir = path.join(__dirname, "assets");
+  if (fs.existsSync(assetsDir)) {
+    app.use("/assets", express.static(assetsDir));
+  }
+} catch (error) {
+  console.log("Static file directories not available in serverless environment");
 }
-
-// Ensure assets/notes directory exists
-const assetsDir = path.join(__dirname, "assets", "notes");
-if (!fs.existsSync(assetsDir)) {
-  fs.mkdirSync(assetsDir, { recursive: true });
-}
-
-app.use("/uploads", express.static(uploadsDir));
-app.use("/assets", express.static(path.join(__dirname, "assets")));
 
 app.get("/", (_req, res) => res.json({ ok: true, msg: "Coaching Centre API" }));
 app.use("/api/books", booksRouter);
@@ -57,4 +57,11 @@ app.use("/api/payment", paymentRouter);
 app.use("/api/admin", adminRouter);
 
 const port = process.env.PORT || 8080;
-app.listen(port, "0.0.0.0", () => console.log(`API running on port ${port}`));
+
+// Export for Vercel serverless
+export default app;
+
+// Only start server if not in serverless environment
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, "0.0.0.0", () => console.log(`API running on port ${port}`));
+}

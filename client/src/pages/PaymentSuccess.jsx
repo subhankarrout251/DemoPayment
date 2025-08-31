@@ -1,66 +1,76 @@
-[
-  {
-    "id": "c-334b7848-543d-4dbc-9783-83ebba164059",
-    "title": "a",
-    "price": 2,
-    "category": "book",
-    "file": "assets/notes/bb57e139-657a-4415-b3fb-7424a92c22bd.jpeg",
-    "createdAt": 1756461068914
-  },
-  {
-    "id": "c-88e8162e-d7be-4498-9948-1baf3019689a",
-    "title": "a",
-    "price": 2,
-    "category": "a",
-    "file": "assets/notes/44151d8b-f5dd-4a43-ae1c-e5adffb3ff0f.pdf",
-    "createdAt": 1756461208282
-  },
-  {
-    "id": "c-d5c138d1-45e0-421e-bcce-5d30c4d110e0",
-    "title": "a",
-    "price": 1,
-    "category": "a",
-    "file": "assets/notes/41edb571-d59b-4f22-9f3c-049a55afe233.pdf",
-    "createdAt": 1756461424710
-  },
-  {
-    "id": "c-f9bb3b2c-f73b-4c82-9e93-43f9411610f7",
-    "title": "abc",
-    "price": 50,
-    "category": "book",
-    "file": "assets/notes/ac57de23-3d18-4c10-9201-e03b03c3c9e5.pdf",
-    "createdAt": 1756463129787
-  },
-  {
-    "id": 1,
-    "category": "class 11",
-    "title": "Physics Notes – Class 11",
-    "price": 1,
-    "cover": "https://picsum.photos/seed/phy11/300/420",
-    "file": "/assets/notes/1.pdf"
-  },
-  {
-    "id": 2,
-    "category": "class 12",
-    "title": "Chemistry Notes – Class 11",
-    "price": 179,
-    "cover": "https://picsum.photos/seed/chem11/300/420",
-    "file": "/assets/notes/2.pdf"
-  },
-  {
-    "id": 3,
-    "category": "class 11",
-    "title": "Mathematics Notes – Class 12",
-    "price": 219,
-    "cover": "https://picsum.photos/seed/math12/300/420",
-    "file": "/assets/notes/3.pdf"
-  },
-  {
-    "id": 4,
-    "category": "class 12",
-    "title": "Biology Notes – NEET",
-    "price": 249,
-    "cover": "https://picsum.photos/seed/bio/300/420",
-    "file": "/assets/notes/4.pdf"
-  }
-]
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const PaymentSuccess = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Clear cart from localStorage on successful payment
+    localStorage.removeItem('cart');
+  }, []);
+
+  const handleContinueShopping = () => {
+    navigate('/shop');
+  };
+
+  const handleGoHome = () => {
+    navigate('/');
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
+        <div className="mb-6">
+          <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+            <svg
+              className="w-8 h-8 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            Payment Successful!
+          </h1>
+          <p className="text-gray-600">
+            Thank you for your purchase. Your order has been confirmed and you will receive an email confirmation shortly.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <button
+            onClick={handleContinueShopping}
+            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+          >
+            Continue Shopping
+          </button>
+          <button
+            onClick={handleGoHome}
+            className="w-full bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition duration-200"
+          >
+            Go to Home
+          </button>
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-gray-200">
+          <p className="text-sm text-gray-500">
+            Need help? Contact our support team at{' '}
+            <a href="mailto:support@example.com" className="text-blue-600 hover:underline">
+              support@example.com
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PaymentSuccess;
