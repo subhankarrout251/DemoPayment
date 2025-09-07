@@ -39,7 +39,7 @@ export default function Shop() {
         const response = await fetch(
           `${
             import.meta.env.VITE_API_URL ||
-            "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app"
+            "https://demo-payment-nine.vercel.app"
           }/api/books`
         );
         const data = await response.json();

@@ -2,7 +2,7 @@
 
 export const API_BASE =
   import.meta.env.VITE_API_URL ||
-  "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app";
+  "https://demo-payment-nine.vercel.app";
 
 async function handleResponse(res) {
   if (!res.ok) {

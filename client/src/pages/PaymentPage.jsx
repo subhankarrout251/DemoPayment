@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const API_BASE =
   import.meta.env.VITE_API_URL ||
-  "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app";
+  "https://demo-payment-nine.vercel.app";
 
 export default function PaymentPage() {
   const [qrCode, setQrCode] = useState("");

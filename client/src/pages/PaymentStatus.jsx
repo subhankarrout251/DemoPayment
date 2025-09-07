@@ -72,7 +72,7 @@ function PaymentStatus() {
 
       // Use fetch to handle the download properly
       const response = await fetch(
-        `https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app/api/payment/phonepe/download/${merchantOrderId}/${itemId}`
+        `https://demo-payment-nine.vercel.app/api/payment/phonepe/download/${merchantOrderId}/${itemId}`
       );
 
       if (!response.ok) {
@@ -119,7 +119,7 @@ function PaymentStatus() {
   const checkPaymentStatus = async (merchantOrderId) => {
     try {
       const response = await axios.get(
-        `https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app/api/payment/phonepe/check-status?merchantOrderId=${merchantOrderId}`
+        `https://demo-payment-nine.vercel.app/api/payment/phonepe/check-status?merchantOrderId=${merchantOrderId}`
       );
 
       if (response.data.ok) {

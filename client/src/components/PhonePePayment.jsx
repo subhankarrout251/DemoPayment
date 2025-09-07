@@ -9,7 +9,7 @@ function PhonePePayment() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app/api/payment/phonepe/create-order",
+        "https://demo-payment-nine.vercel.app/api/payment/phonepe/create-order",
         {
           amount,
         }

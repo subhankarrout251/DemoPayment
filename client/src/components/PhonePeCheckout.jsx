@@ -11,7 +11,7 @@ function PhonePeCheckout({ customer, onSuccess, onError }) {
       setLoading(true);
 
       const response = await axios.post(
-        "https://demo-payment-lhgtiuet8-subhankar-rout.vercel.app",
+        "https://demo-payment-nine.vercel.app",
         {
           amount: getCartTotal() * 100, // Convert to paisa
           name: customer.name,
