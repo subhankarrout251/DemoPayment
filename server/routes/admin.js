@@ -13,12 +13,21 @@ const router = Router();
 // Simple in-memory token store
 const ACTIVE_TOKENS = new Set();
 
-// Storage for PDFs
-const notesDir = path.join(__dirname, "..", "assets", "notes");
-if (!fs.existsSync(notesDir)) fs.mkdirSync(notesDir, { recursive: true });
+// Storage for PDFs - lazy directory creation for serverless compatibility
+const getNotesDir = () => {
+  const notesDir = path.join(__dirname, "..", "assets", "notes");
+  if (!fs.existsSync(notesDir)) {
+    try {
+      fs.mkdirSync(notesDir, { recursive: true });
+    } catch (error) {
+      console.log("Could not create notes directory:", error.message);
+    }
+  }
+  return notesDir;
+};
 
 const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, notesDir),
+  destination: (_req, _file, cb) => cb(null, getNotesDir()),
   filename: (_req, file, cb) => {
     const ext = path.extname(file.originalname || ".pdf").toLowerCase();
     cb(null, `${uuid()}${ext || ".pdf"}`);
@@ -39,8 +48,14 @@ function readCustomBooks() {
   }
 }
 function writeCustomBooks(list) {
-  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
-  fs.writeFileSync(customBooksPath, JSON.stringify(list, null, 2), "utf8");
+  try {
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    fs.writeFileSync(customBooksPath, JSON.stringify(list, null, 2), "utf8");
+  } catch (error) {
+    console.log("Could not create data directory:", error.message);
+  }
 }
 
 // Admin login with password only
@@ -70,12 +85,21 @@ function auth(req, res, next) {
   next();
 }
 
-// Storage for cover images
-const coversDir = path.join(__dirname, "..", "assets", "covers");
-if (!fs.existsSync(coversDir)) fs.mkdirSync(coversDir, { recursive: true });
+// Storage for cover images - lazy directory creation for serverless compatibility
+const getCoversDir = () => {
+  const coversDir = path.join(__dirname, "..", "assets", "covers");
+  if (!fs.existsSync(coversDir)) {
+    try {
+      fs.mkdirSync(coversDir, { recursive: true });
+    } catch (error) {
+      console.log("Could not create covers directory:", error.message);
+    }
+  }
+  return coversDir;
+};
 
 const coverStorage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, coversDir),
+  destination: (_req, _file, cb) => cb(null, getCoversDir()),
   filename: (_req, file, cb) => {
     const ext = path.extname(file.originalname || ".jpg").toLowerCase();
     cb(null, `${uuid()}${ext || ".jpg"}`);

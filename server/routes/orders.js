@@ -29,17 +29,19 @@ function loadOrdersFromDisk() {
       }
     }
   } catch (e) {
-    console.error("Failed to load orders.json:", e);
+    console.log("Orders persistence not available in serverless environment");
   }
 }
 
 function saveOrdersToDisk() {
   try {
-    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
     const list = Array.from(ORDERS.values());
     fs.writeFileSync(ORDERS_PATH, JSON.stringify(list, null, 2), "utf8");
   } catch (e) {
-    console.error("Failed to save orders.json:", e);
+    console.log("Orders persistence not available in serverless environment");
   }
 }
 
@@ -50,7 +52,8 @@ function readCustomBooks() {
     const raw = fs.readFileSync(p, "utf8");
     const list = JSON.parse(raw || "[]");
     return Array.isArray(list) ? list : [];
-  } catch {
+  } catch (error) {
+    console.log("Custom books not available in serverless environment");
     return [];
   }
 }

@@ -16,7 +16,8 @@ function readCustomBooks() {
     const raw = fs.readFileSync(p, "utf8");
     const list = JSON.parse(raw || "[]");
     return Array.isArray(list) ? list : [];
-  } catch {
+  } catch (error) {
+    console.log("Custom books not available in serverless environment");
     return [];
   }
 }
