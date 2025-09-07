@@ -1,6 +1,6 @@
 // client/src/pages/Shop.jsx
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { fetchBooks } from "../lib/api";
 import BookCart from "../components/BookCart";
 import { useCart } from "../../context/CartContext";
@@ -9,8 +9,16 @@ export default function Shop() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const category = searchParams.get("category") || ""; // empty = all
   const { addToCart } = useCart();
+
+  // Redirect to "All" category on initial load
+  useEffect(() => {
+    if (searchParams.get("category")) {
+      navigate("/shop", { replace: true });
+    }
+  }, []);
 
   useEffect(() => {
     setLoading(true);
